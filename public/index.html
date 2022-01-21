@@ -1,15 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css"/>
-    <script src="main.js" defer></script>
+    <title>My first three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>WebGL Project!!</h1>
-    <canvas></canvas>
+    <script src="js/three.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        camera.position.z = 15;
+        
+
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00255});
+        const material2 = new THREE.MeshBasicMaterial({ color: 0000});
+        const material3 = new THREE.MeshBasicMaterial();
+        const geometry = new THREE.BoxGeometry();
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position= 5;
+        scene.add(cube);
+
+        const cube2 = new THREE.Mesh(geometry, material2);
+        cube2.position= -5;
+        scene.add(cube2);
+
+        const geometry2 = new THREE.CylinderGeometry(0, 4, 5, 4, 1);
+        const pyramid = new THREE.Mesh(geometry2, material);
+        pyramid.position = -15;
+        scene.add(pyramid);
+
+        const geometry3 = new THREE.PlaneGeometry(1, 1);
+        const material4 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+        const plane = new THREE.Mesh(geometry, material);
+        plane.position = 10;
+        scene.add(plane);
+
+
+        function animate() {
+                requestAnimationFrame(animate);
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                pyramid.rotation.x += 0.01;
+                pyramid.rotation.y += 0.01;
+                plane.rotation.x += 0.01;
+                plane.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            };
+        animate();
+    </script>
 </body>
 </html>
